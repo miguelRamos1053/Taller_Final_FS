@@ -35,32 +35,32 @@ public class UsurioControlador extends HttpServlet {
             response.setContentType("application/json");
             response.getWriter().println(json);
         } else {
-            // switch (path) {
-            // case "/buscar":
-            // String identificador = request.getParameter("identificador");
-            // try {
-            // Persona persona = personaService.buscarPersona(identificador);
-            // String json = mapper.writeValueAsString(persona);
-            // response.setContentType("application/json");
-            // response.getWriter().println(json);
-            // } catch (Exception e) {
-            // response.setStatus(404);
-            // Map<String, String> error = new HashMap<>();
-            // error.put("error", e.getMessage());
-            // String json = mapper.writeValueAsString(error);
-            // response.setContentType("application/json");
-            // response.getWriter().println(json);
-            // }
-            // break;
-            // default:
-            // response.setStatus(404);
-            // Map<String, String> error = new HashMap<>();
-            // error.put("error", "No se encontro el recurso");
-            // String json = mapper.writeValueAsString(error);
-            // response.setContentType("application/json");
-            // response.getWriter().println(json);
-            // break;
-            // }
+            switch (path) {
+                case "/buscar":
+                    String identificador = request.getParameter("identificador");
+                    try {
+                        Usuario usuario = (Usuario) servicioUsuario.buscar(identificador);
+                        String json = mapper.writeValueAsString(usuario);
+                        response.setContentType("application/json");
+                        response.getWriter().println(json);
+                    } catch (Exception e) {
+                        response.setStatus(404);
+                        Map<String, String> error = new HashMap<>();
+                        error.put("error", e.getMessage());
+                        String json = mapper.writeValueAsString(error);
+                        response.setContentType("application/json");
+                        response.getWriter().println(json);
+                    }
+                    break;
+                default:
+                    response.setStatus(404);
+                    Map<String, String> error = new HashMap<>();
+                    error.put("error", "No se encontro el recurso");
+                    String json = mapper.writeValueAsString(error);
+                    response.setContentType("application/json");
+                    response.getWriter().println(json);
+                    break;
+            }
 
         }
 
@@ -78,6 +78,41 @@ public class UsurioControlador extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_CREATED);
                 Map<String, String> respuesta = new HashMap<>();
                 respuesta.put("mensaje", "Usuario guardada con exito");
+                String json = mapper.writeValueAsString(respuesta);
+                response.setContentType("application/json");
+                response.getWriter().println(json);
+
+            } catch (Exception e) {
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
+                Map<String, String> error = new HashMap<>();
+                error.put("error", e.getMessage());
+                String json = mapper.writeValueAsString(error);
+                response.setContentType("application/json");
+                response.getWriter().println(json);
+            }
+
+        } else {
+            response.setStatus(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE);
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "El contenido debe ser JSON");
+            String json = mapper.writeValueAsString(error);
+            response.setContentType("application/json");
+            response.getWriter().println(json);
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String content = request.getContentType();
+        if (content == "application/json") {
+            Map<String, Object> usuarioMap = mapper.readValue(request.getInputStream(), HashMap.class);
+
+            try {
+                servicioUsuario.actualizar(usuarioMap);
+                response.setStatus(HttpServletResponse.SC_OK);
+                Map<String, String> respuesta = new HashMap<>();
+                respuesta.put("mensaje", "Usuario actualizada con exito");
                 String json = mapper.writeValueAsString(respuesta);
                 response.setContentType("application/json");
                 response.getWriter().println(json);

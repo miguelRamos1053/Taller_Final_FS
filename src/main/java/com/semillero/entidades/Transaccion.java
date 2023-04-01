@@ -1,6 +1,7 @@
 package com.semillero.entidades;
 
 public class Transaccion {
+    int id;
     String fecha;
     String hora;
     String tipo_transaccion;
@@ -10,6 +11,18 @@ public class Transaccion {
 
     public Transaccion(String fecha, String hora, String tipo_transaccion, float monto, String tipo_cuenta_destino,
             Cuenta cuenta) {
+        this.fecha = fecha;
+        this.hora = hora;
+        this.tipo_transaccion = tipo_transaccion;
+        this.monto = monto;
+        this.tipo_cuenta_destino = tipo_cuenta_destino;
+        this.cuenta = cuenta;
+    }
+
+    public Transaccion(int id, String fecha, String hora, String tipo_transaccion, float monto,
+            String tipo_cuenta_destino,
+            Cuenta cuenta) {
+        this.id = id;
         this.fecha = fecha;
         this.hora = hora;
         this.tipo_transaccion = tipo_transaccion;
@@ -64,5 +77,13 @@ public class Transaccion {
 
     public void setCuenta(Cuenta cuenta) {
         this.cuenta = cuenta;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

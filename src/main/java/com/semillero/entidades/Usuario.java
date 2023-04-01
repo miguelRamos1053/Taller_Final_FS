@@ -4,8 +4,16 @@ public class Usuario {
     String nombre;
     String apellido;
     String cedula;
+    int id;
 
     public Usuario(String nombre, String apellido, String cedula) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.cedula = cedula;
+    }
+
+    public Usuario(int id, String nombre, String apellido, String cedula) {
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
@@ -33,5 +41,13 @@ public class Usuario {
 
     public void setCedula(String cedula) {
         this.cedula = cedula;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

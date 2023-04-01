@@ -50,8 +50,7 @@ public class App {
         ServletContextHandler context = new ServletContextHandler();
 
         context.setContextPath("/");
-        // context.addServlet(HolaMundo.class, "/hola/*");
-        context.addServlet(PersonaController.class, "/persona/*");
+
         context.addServlet(UsurioControlador.class, "/usuario/*");
 
         server.setHandler(context);

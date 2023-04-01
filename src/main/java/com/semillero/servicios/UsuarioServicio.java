@@ -29,4 +29,27 @@ public class UsuarioServicio implements ServicioCRUD {
         return (List<Usuario>) repositorioUsuario.listar();
     }
 
+    @Override
+    public void actualizar(Map datos) {
+        String nombre = (String) datos.get("nombre");
+        String apellido = (String) datos.get("apellido");
+        String cedula = (String) datos.get("cedula");
+
+        Usuario usuario = new Usuario(nombre, apellido, cedula);
+        repositorioUsuario.actualizar(usuario);
+    }
+
+    @Override
+    public Object buscar(String identificador) {
+        Object usuario = repositorioUsuario.buscar(identificador);
+        if (usuario == null) {
+            try {
+                throw new Exception("No se encontro la persona");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return (Usuario) usuario;
+    }
+
 }
