@@ -78,22 +78,6 @@ public class PersonaRepository implements Repositorio {
     }
 
     @Override
-    public void actualizar(Object objeto) {
-        try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
-            Persona persona = (Persona) objeto;
-            String sentenciaSql = "UPDATE personas SET nombre = '" + persona.getNombre() + "', apellido = '"
-                    + persona.getApellido() + "', edad = " + persona.getEdad() + ", celular = '"
-                    + persona.getCelular() + "' WHERE identificacion = '" + persona.getIdentificacion() + "';";
-            Statement sentencia = conexion.createStatement();
-            sentencia.execute(sentenciaSql);
-        } catch (SQLException e) {
-            System.err.println("Error de conexión: " + e);
-        } catch (Exception e) {
-            System.err.println("Error " + e.getMessage());
-        }
-    }
-
-    @Override
     public Object buscar(String identificacion) {
         try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
             String sentenciaSQL = "SELECT * FROM personas WHERE identificacion = ?";
@@ -157,6 +141,22 @@ public class PersonaRepository implements Repositorio {
                     + persona.getApellido() + "', edad = " + persona.getEdad() + ", celular = '"
                     + persona.getCelular() + "'identificacion = '" + persona.getIdentificacion() + "' WHERE id = " + id
                     + ";";
+            Statement sentencia = conexion.createStatement();
+            sentencia.execute(sentenciaSql);
+        } catch (SQLException e) {
+            System.err.println("Error de conexión: " + e);
+        } catch (Exception e) {
+            System.err.println("Error " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void actualizar(Object objeto) {
+        try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
+            Persona persona = (Persona) objeto;
+            String sentenciaSql = "UPDATE personas SET nombre = '" + persona.getNombre() + "', apellido = '"
+                    + persona.getApellido() + "', edad = " + persona.getEdad() + ", celular = '"
+                    + persona.getCelular() + "' WHERE identificacion = '" + persona.getIdentificacion() + "';";
             Statement sentencia = conexion.createStatement();
             sentencia.execute(sentenciaSql);
         } catch (SQLException e) {

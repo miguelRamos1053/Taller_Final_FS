@@ -9,26 +9,25 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import com.semillero.controladores.HolaMundo;
 import com.semillero.controladores.PersonaController;
 
-public class App 
-{
-    public static void main( String[] args )
-    {
-        Server server = new Server(8080);
-        server.setHandler(new DefaultHandler());
+public class App {
 
-        ServletContextHandler context = new ServletContextHandler();
+    // public static void main(String[] args) {
+    // Server server = new Server(8888);
+    // server.setHandler(new DefaultHandler());
 
-        context.setContextPath("/");
-        // context.addServlet(HolaMundo.class, "/hola/*");
-        context.addServlet(PersonaController.class, "/persona/*");
+    // ServletContextHandler context = new ServletContextHandler();
 
-        server.setHandler(context);
+    // context.setContextPath("/");
+    // // context.addServlet(HolaMundo.class, "/hola/*");
+    // context.addServlet(PersonaController.class, "/persona/*");
 
-        try{
-            server.start();
-            server.join();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    // server.setHandler(context);
+
+    // try {
+    // server.start();
+    // server.join();
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
+    // }
 }
