@@ -14,6 +14,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 
 import com.semillero.controladores.HolaMundo;
 import com.semillero.controladores.PersonaController;
+import com.semillero.controladores.UsurioControlador;
 import com.semillero.entidades.Usuario;
 import com.semillero.repositorios.RepositorioCRUD;
 import com.semillero.repositorios.UsuarioRepositorio;
@@ -22,43 +23,45 @@ public class App {
 
     public static void main(String[] args) {
 
-        RepositorioCRUD repositorio = new UsuarioRepositorio();
+        // ----PRUEBAS DE LOS REPOSITORIOS -------------------------------------------
 
-        Usuario usuario1 = new Usuario("Homero", "Simpson", "123456");
-        Usuario usuario2 = new Usuario("Leonel", "Messi", "10101010");
+        // RepositorioCRUD repositorio = new UsuarioRepositorio();
 
-        // ---Crear Usuario----
-        repositorio.crear(usuario1);
+        // Usuario usuario1 = new Usuario("Homero", "Simpson", "123456");
+        // Usuario usuario2 = new Usuario("Leonel", "Messi", "10101010");
 
-        repositorio.crear(usuario2);
+        // // ---Crear Usuario----
+        // repositorio.crear(usuario1);
 
-        // ---Listar Usuarios ----
-        ArrayList<Usuario> usuarios = (ArrayList<Usuario>) repositorio.listar();
+        // repositorio.crear(usuario2);
 
-        for (Usuario usuario : usuarios) {
-            System.out.println(usuario.getNombre());
+        // // ---Listar Usuarios ----
+        // ArrayList<Usuario> usuarios = (ArrayList<Usuario>) repositorio.listar();
+
+        // for (Usuario usuario : usuarios) {
+        // System.out.println(usuario.getNombre());
+        // }
+        // -----------------------------------------------------------------------------------
+
+        //
+        Server server = new Server(8888);
+        server.setHandler(new DefaultHandler());
+
+        ServletContextHandler context = new ServletContextHandler();
+
+        context.setContextPath("/");
+        // context.addServlet(HolaMundo.class, "/hola/*");
+        context.addServlet(PersonaController.class, "/persona/*");
+        context.addServlet(UsurioControlador.class, "/usuario/*");
+
+        server.setHandler(context);
+
+        try {
+            server.start();
+            server.join();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 
 }
-
-//
-// Server server = new Server(8888);
-// server.setHandler(new DefaultHandler());
-
-// ServletContextHandler context = new ServletContextHandler();
-
-// context.setContextPath("/");
-// // context.addServlet(HolaMundo.class, "/hola/*");
-// context.addServlet(PersonaController.class, "/persona/*");
-
-// server.setHandler(context);
-
-// try {
-// server.start();
-// server.join();
-// } catch (Exception e) {
-// e.printStackTrace();
-// }
-// }
