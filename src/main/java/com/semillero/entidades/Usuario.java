@@ -19,6 +19,10 @@ public class Usuario {
         this.cedula = cedula;
     }
 
+    public Usuario(int id) {
+        this.id = id;
+    }
+
     public String getNombre() {
         return nombre;
     }

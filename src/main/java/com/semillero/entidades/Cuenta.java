@@ -3,11 +3,11 @@ package com.semillero.entidades;
 public class Cuenta {
     int id;
     String numero_cuenta;
-    float saldo;
+    Integer saldo;
     String tipo_cuenta;
     Usuario usuario;
 
-    public Cuenta(int id, String numero_cuenta, float saldo, String tipo_cuenta, Usuario usuario) {
+    public Cuenta(int id, String numero_cuenta, Integer saldo, String tipo_cuenta, Usuario usuario) {
         this.id = id;
         this.numero_cuenta = numero_cuenta;
         this.saldo = saldo;
@@ -15,7 +15,7 @@ public class Cuenta {
         this.usuario = usuario;
     }
 
-    public Cuenta(String numero_cuenta, float saldo, String tipo_cuenta, Usuario usuario) {
+    public Cuenta(String numero_cuenta, Integer saldo, String tipo_cuenta, Usuario usuario) {
         this.numero_cuenta = numero_cuenta;
         this.saldo = saldo;
         this.tipo_cuenta = tipo_cuenta;
@@ -34,7 +34,7 @@ public class Cuenta {
         return saldo;
     }
 
-    public void setSaldo(float saldo) {
+    public void setSaldo(Integer saldo) {
         this.saldo = saldo;
     }
 
