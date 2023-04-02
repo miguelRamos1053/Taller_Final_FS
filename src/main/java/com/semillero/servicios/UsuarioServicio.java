@@ -40,8 +40,8 @@ public class UsuarioServicio implements ServicioCRUD {
     }
 
     @Override
-    public Object buscar(String identificador) {
-        Object usuario = repositorioUsuario.buscar(identificador);
+    public Object buscar(String idUsuario) {
+        Object usuario = repositorioUsuario.buscar(idUsuario);
         if (usuario == null) {
             try {
                 throw new Exception("No se encontro la persona");

@@ -1,5 +1,6 @@
 package com.semillero.servicios;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,13 +22,19 @@ public class CuentaServicio implements ServicioCRUD {
         String numero_cuenta = (String) datos.get("numero_cuenta");
         Integer saldo = (Integer) datos.get("saldo");
         String tipo_cuenta = (String) datos.get("tipo_cuenta");
-
         int idUsuario = (int) datos.get("id_usuario");
 
-        Usuario usuario = new Usuario(idUsuario);
+        ServicioCRUD servicioUsuairo = new UsuarioServicio();
 
-        Cuenta cuenta = new Cuenta(numero_cuenta, saldo, tipo_cuenta, usuario);
-        repositorioCuenta.crear(cuenta);
+        // verifica si el usuario existe
+        if (servicioUsuairo.buscar(String.valueOf(idUsuario)) == null) {
+            System.out.println("El usuario no existe, por lo tanto no se puede crear la cuenta");
+        } else {
+            Usuario usuario = new Usuario(idUsuario);
+            Cuenta cuenta = new Cuenta(numero_cuenta, saldo, tipo_cuenta, usuario);
+            repositorioCuenta.crear(cuenta);
+        }
+
     }
 
     @Override
@@ -38,13 +45,14 @@ public class CuentaServicio implements ServicioCRUD {
     @Override
     public void actualizar(Map datos) {
         String numero_cuenta = (String) datos.get("numero_cuenta");
-        float saldo = (float) datos.get("saldo");
+        int saldo = (int) datos.get("saldo");
         String tipo_cuenta = (String) datos.get("tipo_cuenta");
         int idUsuario = (int) datos.get("idUsuario");
 
-        // Usuario usuario = new Usuario(nombre, apellido, cedula);
+        Usuario usuario = new Usuario(idUsuario);
 
-        // repositorioUsuario.actualizar(usuario);
+        Cuenta cuenta = new Cuenta(numero_cuenta, saldo, tipo_cuenta, usuario);
+        repositorioCuenta.actualizar(cuenta);
     }
 
     @Override

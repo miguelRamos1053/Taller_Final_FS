@@ -52,14 +52,14 @@ public class CuentaRepositorio implements RepositorioCRUD {
         try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
             Cuenta cuenta = (Cuenta) objeto;
 
-            String senteciaSql = "UPDATE CUENTAS SET SALDO =?, TIPO_CUENTA =?, ID_USUARIO =? WHERE NUMERO_CUENTA =?;";
+            String senteciaSql = "UPDATE CUENTAS SET SALDO =?, TIPO_CUENTA =?, NUMERO_CUENTA =? WHERE ID_USUARIO =?;";
 
             PreparedStatement sentencia = conexion.prepareStatement(senteciaSql);
 
             sentencia.setInt(1, (int) cuenta.getSaldo());
             sentencia.setString(2, cuenta.getTipo_cuenta());
-            sentencia.setInt(3, cuenta.getUsuario().getId());
-            sentencia.setString(4, cuenta.getNumero_cuenta());
+            sentencia.setString(3, cuenta.getNumero_cuenta());
+            sentencia.setInt(4, cuenta.getUsuario().getId());
 
             sentencia.execute();
 

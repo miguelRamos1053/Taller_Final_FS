@@ -73,11 +73,11 @@ public class UsuarioRepositorio implements RepositorioCRUD {
     }
 
     @Override
-    public Object buscar(String identificador) {
+    public Object buscar(String idUsuario) {
         try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
-            String sentenciaSQL = "SELECT * FROM USUARIOS WHERE CEDULA = ?";
+            String sentenciaSQL = "SELECT * FROM USUARIOS WHERE ID = ?";
             PreparedStatement sentencia = conexion.prepareStatement(sentenciaSQL);
-            sentencia.setString(1, identificador);
+            sentencia.setString(1, idUsuario);
             ResultSet resultadoConsulta = sentencia.executeQuery();
             if (resultadoConsulta != null && resultadoConsulta.next()) {
                 Usuario usuario = null;
